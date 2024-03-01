@@ -70,42 +70,6 @@ merged_data = pd.concat([monthly_bike_usage, monthly_additional_usage], axis=1)
 merged_data.columns = ['Penggunaan Awal', 'Penggunaan Tambahan']
 
 
-# Muat dataset dari URL
-url = "https://raw.githubusercontent.com/erinazz23/Bike-Analisis/master/data/day.csv"
-bike_data = pd.read_csv(url)
-
-# Hitung jumlah pengguna yang memenuhi setiap kriteria diskon
-discount_counts = {
-    'Diskon 10% (≤30 kali)': len(bike_data[bike_data['cnt'] >= 50]),
-    'Diskon 20% (≥30 kali)': len(bike_data[bike_data['cnt'] >= 60]),
-}
-
-# Hitung total jumlah diskon
-total_discounts = sum(discount_counts.values())
-
-# Tampilkan judul aplikasi
-st.header('Analisis Diskon Pengguna Sepeda')
-
-# Tampilkan total jumlah diskon
-st.subheader('Total Jumlah Diskon:')
-st.write(total_discounts)
-
-# Tampilkan detail diskon per kriteria
-st.subheader('Detail Diskon per Kriteria:')
-for k, v in discount_counts.items():
-    st.write(f"{k}: {v}")
-
-# Tampilkan dalam diagram batang
-st.subheader('Diagram Batang Jumlah Penerima Diskon Berdasarkan Kriteria')
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.bar(discount_counts.keys(), discount_counts.values(), color=['skyblue', 'lightgreen'])
-ax.set_xlabel('Kriteria Diskon')
-ax.set_ylabel('Jumlah Penerima Diskon')
-ax.set_title('Jumlah Penerima Diskon Berdasarkan Kriteria')
-ax.tick_params(axis='x', rotation=45)
-st.pyplot(fig)
-
-
 # Menampilkan plot tren jangka panjang penggunaan sepeda
 st.subheader('Tren Jangka Panjang Penggunaan Sepeda')
 fig, ax = plt.subplots(figsize=(10, 6))
